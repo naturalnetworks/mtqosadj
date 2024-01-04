@@ -68,5 +68,5 @@ and set Queue Tree Max Limits on the MikroTik RouterOS.
 INFO: Download/Upload Queue CURRENT Max Limit: 45609063/9738548
 INFO: Setting Queue "download" Max Limit to 45609063
 INFO: Setting Queue "upload" Max Limit to 9738548
-INFO: Download/Uploads Queue APPLIED Max Limits: 45609063/9738548
+INFO: Download/Uploads Queue APPLIED Max Limits: 45609063/9738548 (45609.06/9738.55 kbps)
 ```

@@ -79,7 +79,7 @@ def read_config():
 
 # Function to convert bits per second to kilobits per second
 def bits_to_kbps(bits_per_second):
-    return round(bits_per_second / 1000, 2)
+    return round(int(bits_per_second) / 1000, 2)
 
 # Function to subtract a percentage from a number
 def subtract_percentage(number, percentage):
@@ -124,12 +124,15 @@ def set_queue_tree_max_limit(api, queue_name, max_limit):
     # Check if the queue tree entry exists
     if target_queue:
         queue_id = target_queue[0].get('id')
+        current_max_limit = target_queue[0].get('max-limit')
 
-    # Set Queue Tree Element
-    if queue_id and max_limit:
-        logging.info("Setting Queue \"%s\" Max Limit to %s", queue_name, max_limit)
-        # queue_tree.set(id=str(queue_id), max_limit=str(max_limit))
-        return
+        # Check if the difference between the current and proposed max limits is greater than 2%
+        if current_max_limit is not None and abs(int(current_max_limit) - int(max_limit)) / int(current_max_limit) > 0.02:
+            logging.info("Setting Queue \"%s\" Max Limit to %s", queue_name, max_limit)
+            api.get_resource('/queue/tree').set(id=str(queue_id), max_limit=str(max_limit))
+        else:
+            logging.info("Queue \"%s\" Max Limit is within +/- 2%% (Current: %skbps vs Proposed: %skbps), no change needed",
+                            queue_name, bits_to_kbps(current_max_limit), bits_to_kbps(max_limit))
     else:
         logging.error("Queue ID or Max Limit is not set")
         return
@@ -186,7 +189,7 @@ def main(args):
         exit(1)
 
     # Display results
-    logging.info("DSL Downstream/Upstream actual rates: %s/%s bps (%s/%s kbps)",
+    logging.info("DSL Downstream/Upstream actual rates: %s/%sbps (%s/%skbps)",
             dsl_downstream_act_rate,
             dsl_upstream_act_rate,
             bits_to_kbps(dsl_downstream_act_rate),
@@ -227,7 +230,7 @@ def main(args):
     mt_queue_tree_upload_applied_max_limit_value = int(get_queue_tree_attributes(api, UPLOAD_QUEUE_NAME)[1])
 
     if mt_queue_tree_download_applied_max_limit_value is not None and mt_queue_tree_upload_applied_max_limit_value is not None:
-        logging.info("Download/Uploads Queue APPLIED Max Limits: %s/%s (%s/%s kbps)",
+        logging.info("Download/Uploads Queue APPLIED Max Limits: %s/%s (%s/%skbps)",
             mt_queue_tree_download_applied_max_limit_value,
             mt_queue_tree_upload_applied_max_limit_value,
             bits_to_kbps(mt_queue_tree_download_applied_max_limit_value),

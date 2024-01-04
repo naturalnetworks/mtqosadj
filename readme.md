@@ -28,7 +28,9 @@ The max limit is calculated as a percentage of the current rate - in this case,
 
 1. Clone the repository:
 
-    `git clone https://github.com/naturalnetworks/mtqosadj.git`
+    ```
+    git clone https://github.com/naturalnetworks/mtqosadj.git
+    ```
 
 1. Create a Python Virtual Environment
 
@@ -39,8 +41,10 @@ The max limit is calculated as a percentage of the current rate - in this case,
     ```
 
 1. Install dependencies:
-
-    `pip install -r requirements.txt`
+  
+    ```
+    pip install -r requirements.txt
+    ```
     
 ## Configuration
 
@@ -52,11 +56,11 @@ variables for sensitive information.
 Run the script with the necessary permissions to read SNMP information from the DSL modem
 and set Queue Tree Max Limits on the MikroTik RouterOS.
 
-`/path/to/python_app/.venv/bin/python3 /path/to/python_app/main.py`
+`/path/to/mtqosadj/.venv/bin/python3 /path/to/mtqosadj/main.py`
 
 ## Example contab entry
 
-`*/30 * * * * user /path/to/python_app/.venv/bin/python3 /path/to/python_app/main.py`
+`*/30 * * * * user /path/to/mtqosadj/.venv/bin/python3 /path/to/mtqosadj/main.py`
 
 ## Example log ouput
 

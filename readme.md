@@ -28,13 +28,20 @@ The max limit is calculated as a percentage of the current rate - in this case,
 
 1. Clone the repository:
 
-    ```git clone https://github.com/naturalnetworks/mtqosadj.git
+    `git clone https://github.com/naturalnetworks/mtqosadj.git`
+
+1. Create a Python Virtual Environment
+
+    ```
+    cd mtqosadj
+    python3 -m venv .venv
+    source .venv/bin/activate
     ```
 
 1. Install dependencies:
 
-    ```pip install -r requirements.txt
-    ```
+    `pip install -r requirements.txt`
+    
 ## Configuration
 
 Edit `config.json` to set SNMP and RouterOS parameters. Alternatively, use environment

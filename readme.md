@@ -60,7 +60,7 @@ and set Queue Tree Max Limits on the MikroTik RouterOS.
 
 ## Example contab entry
 
-`*/30 * * * * user /path/to/mtqosadj/.venv/bin/python3 /path/to/mtqosadj/main.py`
+`*/30 * * * * user cd /path/to/mtqosadj && /path/to/mtqosadj/.venv/bin/python3 /path/to/mtqosadj/main.py`
 
 ## Example log ouput
 
